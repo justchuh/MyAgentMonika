@@ -1,0 +1,16 @@
+[Unit]
+Description=My Custom Agent (Monika) Voice Assistant Daemon
+After=graphical-session.target pipewire.service
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/armen/my_custom_agent
+ExecStart=/usr/bin/python3 /home/armen/my_custom_agent/main.py --listen
+Restart=on-failure
+RestartSec=3
+Environment="PYTHONUNBUFFERED=1"
+Environment="PATH=/home/armen/.local/bin:/usr/local/bin:/usr/bin:/bin"
+
+[Install]
+WantedBy=graphical-session.target

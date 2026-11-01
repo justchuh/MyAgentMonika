@@ -1,0 +1,93 @@
+# Конфигурация голосового ассистента My Custom Agent
+
+system:
+  name: "Моника"
+  wake_word: "моника"
+  mode: "oneshot"                # "oneshot" (бесшовный: 'Моника, сколько времени') или "dialog" (двухэтапный)
+  log_level: "INFO"
+
+vad:
+  threshold: 0.50                # Порог вероятности речи Silero VAD v6 (0.0 - 1.0)
+  silence_limit_sec: 1.0         # Комфортная пауза тишины перед фиксацией конца фразы (сек)
+  active_window_sec: 5.0         # Окно ожидания команды после одного лишь слова 'Моника' (сек)
+
+wake_word:
+  enabled: true
+  engine: "vosk"                 # "vosk" (нативный русский, без акцентов) или "sherpa"
+  phrase: "моника"
+  vosk_model_dir: "/home/armen/.local/share/vosk/vosk-model-small-ru-0.22"
+  sherpa_model_dir: "/home/armen/.local/share/sherpa-onnx/models/kws/zipformer"
+  phrases: ["MONIKA", "MONICA"]
+  threshold: 0.25
+
+tts:
+  enabled: true
+  engine: "silero"                  # Нативный локальный движок TTS Silero v4
+  model: "v4_ru"                    # Модель v4_ru с авто-расстановкой русских ударений
+  sample_rate: 48000                # Кристальное студийное качество 48 кГц
+  device: "cpu"                     # Базовый синтез на CPU (80-140 мс, 0% нагрузки на VRAM)
+  speed: 1.05                       # Скорость речи
+  cache_audio: true                 # Кэширование частых ответов (мгновенное 0 мс воспроизведение)
+  cache_dir: "/home/armen/.cache/my_custom_agent/audio"
+  python_bin: "/home/armen/.local/share/my_custom_agent/silero_venv/bin/python"
+
+  # Выбор активного рабочего голоса:
+  # "nyamura_warm"   - ОСНОВНОЙ РАБОЧИЙ ГОЛОС (Нямура Warm Гибрид: 68% Бая + 32% Нямура)
+  # "nyamura_smooth" - Альтернатива (VTuber RVC)
+  # "baya"           - Альтернатива (Чистый нативный Silero TTS)
+  active_preset: "nyamura_warm"
+
+  presets:
+    nyamura_warm:
+      name: "Нямура Warm (Гибрид)"
+      speaker: "baya"
+      rvc:
+        enabled: true
+        model_path: "/home/armen/my_custom_agent/models/rvc/nyamura/nyamura-ru.pth"
+        index_path: "/home/armen/my_custom_agent/models/rvc/nyamura/added_IVF762_Flat_nprobe_1_nyamura-ru_v1.index"
+        version: "v1"
+        index_rate: 0.32            # 68% Бая + 32% Нямура
+        filter_radius: 7            # Максимальное сглаживание, 0 металлических шумов
+        rms_mix_rate: 0.30
+        protect: 0.50
+        f0method: "rmvpe"
+        f0up_key: 0
+        python_bin: "/home/armen/.local/share/my_custom_agent/rvc_venv/bin/python"
+
+    nyamura_smooth:
+      name: "Нямура Smooth"
+      speaker: "baya"
+      rvc:
+        enabled: true
+        model_path: "/home/armen/my_custom_agent/models/rvc/nyamura/nyamura-ru.pth"
+        index_path: "/home/armen/my_custom_agent/models/rvc/nyamura/added_IVF762_Flat_nprobe_1_nyamura-ru_v1.index"
+        version: "v1"
+        index_rate: 0.45            # 55% Бая + 45% Нямура
+        filter_radius: 5            # Сглаживающий фильтр
+        rms_mix_rate: 0.25
+        protect: 0.50
+        f0method: "rmvpe"
+        f0up_key: 0
+        python_bin: "/home/armen/.local/share/my_custom_agent/rvc_venv/bin/python"
+
+    baya:
+      name: "Бая (Silero TTS Чистая)"
+      speaker: "baya"
+      rvc:
+        enabled: false
+
+stt:
+  enabled: true
+  engine: "faster-whisper"
+  model: "large-v3-turbo"
+  device: "cuda"
+  compute_type: "float16"
+  language: "ru"
+
+output:
+  console_logs: true
+  desktop_notifications: true
+  notification_timeout_ms: 3000
+  notification_app_name: "Моника"
+  waifuland_bridge: false
+  waifuland_socket: "/tmp/waifuland.sock"

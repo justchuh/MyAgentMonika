@@ -1,0 +1,14 @@
+# Макросы Hyprland для одновременного запуска программ по рабочим столам (поддержка Omarchy / Lua)
+
+macros:
+  "режим отдыха":
+    description: "Запуск игрового и мультимедиа софта"
+    reply: "Включаю режим отдыха"
+    emotion: "smile"
+    actions:
+      - "hyprctl dispatch 'hl.dsp.focus({ workspace = \"1\" })'"
+      - "steam &"
+      - "hyprctl dispatch 'hl.dsp.focus({ workspace = \"2\" })'"
+      - "discord &"
+      - "pamixer --set-volume 35"
+      - "hyprctl dispatch 'hl.dsp.focus({ workspace = \"1\" })'"

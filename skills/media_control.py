@@ -62,7 +62,9 @@ def _send_mpris_action(action: str) -> bool:
         "volume up",
         "volume down",
         "unmute",
-        "mute"
+        "mute",
+        "верни музыку",
+        "верни громкость",
     ],
     description="Управление громкостью, mute и unmute через pamixer"
 )

@@ -37,13 +37,13 @@ APP_REGISTRY = {
         "display_name": "Telegram"
     },
     "obsidian": {
-        "aliases": ["обсидиан", "заметки", "конспекты", "obsidian"],
+        "aliases": ["обсидиан", "заметки", "конспекты", "obsidian", "открой заметки"],
         "class_regex": r"obsidian",
         "launch_cmd": "obsidian",
         "display_name": "Obsidian"
     },
     "throne": {
-        "aliases": ["трон", "throne"],
+        "aliases": ["трон", "throne", "впн", "vpn"],
         "class_regex": r"throne",
         "launch_cmd": "throne",
         "display_name": "Throne"

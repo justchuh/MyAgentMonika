@@ -26,7 +26,7 @@ tts:
   model: "v4_ru"                    # Модель v4_ru с авто-расстановкой русских ударений
   sample_rate: 48000                # Кристальное студийное качество 48 кГц
   device: "cpu"                     # Базовый синтез на CPU (80-140 мс, 0% нагрузки на VRAM)
-  speed: 1.05                       # Скорость речи
+  speed: 1.15                       # Скорость речи
   cache_audio: true                 # Кэширование частых ответов (мгновенное 0 мс воспроизведение)
   cache_dir: "/home/armen/.cache/my_custom_agent/audio"
   python_bin: "/home/armen/.local/share/my_custom_agent/silero_venv/bin/python"

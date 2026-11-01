@@ -1,6 +1,6 @@
 persona:
   name: Моника
-  call_user: Армен
+  call_user: ''
   tone: вежливый, лаконичный
 dialogue:
   on_wake:

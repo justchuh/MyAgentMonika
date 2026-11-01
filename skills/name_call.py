@@ -2,7 +2,7 @@
 Скилл управления обращением по имени (включение / отключение / смена имени).
 Сохраняет настройки в character.yaml и обновляет текущую сессию PersonaManager.
 """
-
+from core.constants import DEFAULT_USER_NAME
 import re
 from pathlib import Path
 import yaml
@@ -65,7 +65,10 @@ def enable_name_call(text: str, context: dict) -> dict:
 
     if not custom_name:
         # Если имя не названо в команде — берем существующее или дефолтное "Армен"
-        custom_name = persona.call_user if (persona and persona.call_user) else "Армен"
+        if persona and persona.call_user:
+            custom_name = persona.call_user
+        else: 
+            custom_name = DEFAULT_USER_NAME
 
     if persona:
         persona.call_user = custom_name

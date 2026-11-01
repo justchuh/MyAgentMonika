@@ -250,7 +250,6 @@ def close_mode_study(text: str, context: dict) -> dict:
     name="mode_daily",
     triggers=[
         "начало дня",
-        "открой заметки",
         "daily mode",
         "ежедневный режим",
         "утренний режим",

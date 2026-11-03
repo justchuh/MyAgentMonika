@@ -7,8 +7,8 @@ system:
   log_level: "INFO"
 
 vad:
-  threshold: 0.50                # Порог вероятности речи Silero VAD v6 (0.0 - 1.0)
-  silence_limit_sec: 1.0         # Комфортная пауза тишины перед фиксацией конца фразы (сек)
+  threshold: 0.8                # Порог вероятности речи Silero VAD v6 (0.0 - 1.0)
+  silence_limit_sec: 0.5         # Комфортная пауза тишины перед фиксацией конца фразы (сек)
   active_window_sec: 5.0         # Окно ожидания команды после одного лишь слова 'Моника' (сек)
 
 wake_word:
@@ -26,7 +26,7 @@ tts:
   model: "v4_ru"                    # Модель v4_ru с авто-расстановкой русских ударений
   sample_rate: 48000                # Кристальное студийное качество 48 кГц
   device: "cpu"                     # Базовый синтез на CPU (80-140 мс, 0% нагрузки на VRAM)
-  speed: 1.15                       # Скорость речи
+  speed: 1.25                       # Скорость речи
   cache_audio: true                 # Кэширование частых ответов (мгновенное 0 мс воспроизведение)
   cache_dir: "/home/armen/.cache/my_custom_agent/audio"
   python_bin: "/home/armen/.local/share/my_custom_agent/silero_venv/bin/python"

@@ -1,0 +1,19 @@
+[Unit]
+Description=ZeroVoiceAgent (Monika) Voice Assistant Daemon
+After=graphical-session.target pipewire.service wireplumber.service
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/armen/my_custom_agent
+ExecStart=/usr/bin/python3 -u /home/armen/my_custom_agent/main.py --listen
+Restart=on-failure
+RestartSec=3
+Environment="PYTHONUNBUFFERED=1"
+Environment="PATH=/home/armen/.local/bin:/usr/local/bin:/usr/bin:/bin"
+Environment="XDG_RUNTIME_DIR=%t"
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=graphical-session.target

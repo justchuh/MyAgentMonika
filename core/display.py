@@ -4,7 +4,7 @@
 - Всплывающие уведомления notify-send (Wayland/Hyprland)
 - Передача эмоций в окно Waifuland (Live2D)
 """
-
+    
 import os
 import socket
 import subprocess

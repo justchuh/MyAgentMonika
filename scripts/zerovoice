@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# ==============================================================================
+# ZeroVoiceAgent CLI & Service Manager (zerovoice)
+# ==============================================================================
+
+SERVICE_NAME="zerovoice.service"
+APP_DIR="/home/armen/my_custom_agent"
+
+case "$1" in
+    toggle)
+        if systemctl --user is-active --quiet "$SERVICE_NAME"; then
+            systemctl --user stop "$SERVICE_NAME"
+            notify-send -a "Моника" -u normal -t 2500 "Ассистент отключен" "Фоновый процесс остановлен"
+        else
+            systemctl --user start "$SERVICE_NAME"
+            notify-send -a "Моника" -u normal -t 2500 "Ассистент включен" "Инициализация и запуск прослушивания..."
+        fi
+        ;;
+    start)
+        systemctl --user start "$SERVICE_NAME"
+        notify-send -a "Моника" -u normal -t 2500 "Ассистент запущен" "Служба zerovoice активна"
+        ;;
+    stop)
+        systemctl --user stop "$SERVICE_NAME"
+        notify-send -a "Моника" -u normal -t 2500 "Ассистент остановлен" "Служба zerovoice отключена"
+        ;;
+    restart)
+        systemctl --user restart "$SERVICE_NAME"
+        notify-send -a "Моника" -u normal -t 2500 "Перезапуск ассистента" "Служба перезапущена"
+        ;;
+    status)
+        systemctl --user status "$SERVICE_NAME"
+        ;;
+    logs)
+        journalctl --user -u "$SERVICE_NAME" -f
+        ;;
+    *)
+        exec /usr/bin/python3 "$APP_DIR/main.py" "$@"
+        ;;
+esac
